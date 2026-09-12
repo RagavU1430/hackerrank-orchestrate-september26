@@ -1,0 +1,518 @@
+{
+  "image_01": {
+    "image_id": "image_01",
+    "user_id": "user_03",
+    "related_event_id": "event_253",
+    "document_type": "payslip",
+    "document_date": "2019-08-31",
+    "candidates": [
+      {
+        "label": "earnings_subtotal",
+        "amount": "4780800",
+        "currency": "IDR",
+        "confidence": 1.0
+      },
+      {
+        "label": "deductions_subtotal",
+        "amount": "415800",
+        "currency": "IDR",
+        "confidence": 1.0
+      },
+      {
+        "label": "net_pay",
+        "amount": "4365000",
+        "currency": "IDR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "4365000",
+    "selected_currency": "IDR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Standard monthly payslip. Cash inflow is net pay transferred to employee bank account."
+  },
+  "image_02": {
+    "image_id": "image_02",
+    "user_id": "user_16",
+    "related_event_id": "event_1442",
+    "document_type": "rent_receipt",
+    "document_date": "2023-08-11",
+    "candidates": [
+      {
+        "label": "rent_and_maintenance",
+        "amount": "180000.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total_charges",
+        "amount": "200000.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "amount_received",
+        "amount": "100000.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "balance_due",
+        "amount": "100000.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "100000.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Event description explicitly requests 'Outstanding rent balance', matching Balance Due of \u20b91,00,000."
+  },
+  "image_03": {
+    "image_id": "image_03",
+    "user_id": "user_17",
+    "related_event_id": "event_1545",
+    "document_type": "grocery_bill",
+    "document_date": "2026-02-27",
+    "candidates": [
+      {
+        "label": "net_amount",
+        "amount": "41272.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "cash_paid",
+        "amount": "41272.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "41272.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Retail grocery receipt with exact cash paid and net amount matching \u20b941,272.00."
+  },
+  "image_04": {
+    "image_id": "image_04",
+    "user_id": "user_19",
+    "related_event_id": "event_1700",
+    "document_type": "grocery_delivery_order",
+    "document_date": "2024-09-03",
+    "candidates": [
+      {
+        "label": "item_bill",
+        "amount": "2854.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total_with_delivery",
+        "amount": "2870.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "2854.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Delivery grocery app receipt. Item bill \u20b92,854.00 represents confirmed goods cost."
+  },
+  "image_05": {
+    "image_id": "image_05",
+    "user_id": "user_20",
+    "related_event_id": "event_1786",
+    "document_type": "utility_bill",
+    "document_date": "2026-02-06",
+    "candidates": [
+      {
+        "label": "rentals",
+        "amount": "580.65",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "this_months_charges",
+        "amount": "704.05",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "amount_due_before_due_date",
+        "amount": "704.05",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "amount_due_after_due_date",
+        "amount": "822.05",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "704.05",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Broadband utility bill. Timely payment amount due before due date is \u20b9704.05."
+  },
+  "image_06": {
+    "image_id": "image_06",
+    "user_id": "user_33",
+    "related_event_id": "event_3051",
+    "document_type": "grocery_invoice",
+    "document_date": "2026-01-06",
+    "candidates": [
+      {
+        "label": "subtotal",
+        "amount": "1900.02",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "tax",
+        "amount": "94.98",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total",
+        "amount": "1995.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "1995.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Quick commerce tax invoice. Total payable inclusive of GST is \u20b91,995.00."
+  },
+  "image_07": {
+    "image_id": "image_07",
+    "user_id": "user_35",
+    "related_event_id": "event_3231",
+    "document_type": "restaurant_bill",
+    "document_date": "2025-10-29",
+    "candidates": [
+      {
+        "label": "subtotal",
+        "amount": "8122.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total_with_tax",
+        "amount": "8528.10",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "grand_total",
+        "amount": "8528.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "8528.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Restaurant dining receipt. Rounded cash grand total charged to customer is \u20b98,528.00."
+  },
+  "image_08": {
+    "image_id": "image_08",
+    "user_id": "user_48",
+    "related_event_id": "event_4535",
+    "document_type": "society_maintenance_receipt",
+    "document_date": "2026-07-24",
+    "candidates": [
+      {
+        "label": "maintenance_charge",
+        "amount": "13880.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "clubhouse_charge",
+        "amount": "1050.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total_amount_received",
+        "amount": "15339.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "15339.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Apartment society quarterly maintenance receipt confirming receipt of \u20b915,339.00."
+  },
+  "image_09": {
+    "image_id": "image_09",
+    "user_id": "user_55",
+    "related_event_id": "event_5170",
+    "document_type": "water_utility_receipt",
+    "document_date": "2026-06-07",
+    "candidates": [
+      {
+        "label": "water_bill_charge",
+        "amount": "723.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total_amount_received",
+        "amount": "723.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "723.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Water board utility receipt confirming \u20b9723.00 payment received."
+  },
+  "image_10": {
+    "image_id": "image_10",
+    "user_id": "user_64",
+    "related_event_id": "event_6033",
+    "document_type": "grocery_invoice",
+    "document_date": "2024-06-03",
+    "candidates": [
+      {
+        "label": "subtotal",
+        "amount": "72045.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total_with_tax",
+        "amount": "79679.26",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "balance_due",
+        "amount": "79679.26",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "79679.26",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Bulk pantry tax invoice. Balance due and total amount payable is \u20b979,679.26."
+  },
+  "image_11": {
+    "image_id": "image_11",
+    "user_id": "user_73",
+    "related_event_id": "event_6859",
+    "document_type": "hospital_bill",
+    "document_date": "2023-01-19",
+    "candidates": [
+      {
+        "label": "room_nursing",
+        "amount": "1650.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total_bill_amount",
+        "amount": "3650.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "amount_payable",
+        "amount": "3650.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "3650.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Hospital inpatient provisional bill. Final net amount payable is \u20b93,650.00."
+  },
+  "image_12": {
+    "image_id": "image_12",
+    "user_id": "user_78",
+    "related_event_id": "event_7307",
+    "document_type": "taxi_receipt",
+    "document_date": "2025-10-01",
+    "candidates": [
+      {
+        "label": "ride_distance_fare",
+        "amount": "28.50",
+        "currency": "USD",
+        "confidence": 1.0
+      },
+      {
+        "label": "airport_surcharge",
+        "amount": "5.00",
+        "currency": "USD",
+        "confidence": 1.0
+      },
+      {
+        "label": "subtotal",
+        "amount": "33.50",
+        "currency": "USD",
+        "confidence": 1.0
+      },
+      {
+        "label": "total",
+        "amount": "33.50",
+        "currency": "USD",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "33.50",
+    "selected_currency": "USD",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Airport taxi fare receipt with distance charge and surcharge totaling $33.50."
+  },
+  "image_13": {
+    "image_id": "image_13",
+    "user_id": "user_84",
+    "related_event_id": "event_7941",
+    "document_type": "store_receipt",
+    "document_date": "2026-04-03",
+    "candidates": [
+      {
+        "label": "item_total",
+        "amount": "2298.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total_paid",
+        "amount": "2298.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "2298.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "E-commerce tote bag order summary confirming total paid \u20b92,298.00."
+  },
+  "image_14": {
+    "image_id": "image_14",
+    "user_id": "user_101",
+    "related_event_id": "event_9421",
+    "document_type": "pharmacy_slip",
+    "document_date": "2025-11-02",
+    "candidates": [
+      {
+        "label": "total",
+        "amount": "4543.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "4543.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Handwritten pharmacy retail slip. Clear total column indicates \u20b94,543.00."
+  },
+  "image_15": {
+    "image_id": "image_15",
+    "user_id": "user_105",
+    "related_event_id": "event_9806",
+    "document_type": "flight_invoice",
+    "document_date": "2026-06-07",
+    "candidates": [
+      {
+        "label": "air_travel_charges",
+        "amount": "9580.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "airport_charges",
+        "amount": "388.00",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "grand_total",
+        "amount": "9968.00",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "9968.00",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Airline tax invoice for domestic flight ticket. Grand total is \u20b99,968.00."
+  },
+  "image_16": {
+    "image_id": "image_16",
+    "user_id": "user_113",
+    "related_event_id": "event_10521",
+    "document_type": "ev_charging_invoice",
+    "document_date": "2026-09-03",
+    "candidates": [
+      {
+        "label": "energy_amount",
+        "amount": "333.24",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "cgst",
+        "amount": "29.99",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "sgst",
+        "amount": "29.99",
+        "currency": "INR",
+        "confidence": 1.0
+      },
+      {
+        "label": "total",
+        "amount": "393.22",
+        "currency": "INR",
+        "confidence": 1.0
+      }
+    ],
+    "selected_amount": "393.22",
+    "selected_currency": "INR",
+    "status": "accepted",
+    "confidence": "high",
+    "method": "hybrid_document_analysis",
+    "reasoning": "Electric vehicle charging session invoice. Total payable inclusive of GST is \u20b9393.22."
+  }
+}

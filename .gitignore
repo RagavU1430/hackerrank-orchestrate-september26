@@ -1,0 +1,14 @@
+# Challenge log file
+log.txt
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env
+
+# Local Phase 2 financial diagnostics
+evaluation/state_snapshots/
+.pytest_cache/

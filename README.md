@@ -20,6 +20,16 @@ Read [`problem_statement.md`](./problem_statement.md) for the full task spec, in
 
 ## Quick Start
 
+Phase 1 data ingestion and Phase 2 financial-state reconstruction are implemented.
+They currently generate diagnostics, not final purchase recommendations or `output.csv`.
+See [Phase 2 setup, state semantics and integration interfaces](docs/phase2.md).
+
+```bash
+python -m unittest discover -s tests -v
+python -m code.main --validate-states
+python -m code.main --build-state request_100 --snapshots
+```
+
 Clone the repository and move into the project directory:
 
 ```bash
