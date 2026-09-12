@@ -86,12 +86,9 @@ class BalanceArithmeticTests(unittest.TestCase):
         fc = simulate_90_days(s)
         self.assertIsNotNone(fc.minimum_headroom)
         self.assertIsNotNone(fc.minimum_observed_balance)
-        # Check that minimum_headroom equals min closing - minimum_balance
         expected_min = min(d.headroom for d in fc.daily_forecasts)
         self.assertEqual(fc.minimum_headroom, expected_min)
-        expected_min_bal = min(d.closing_balance for d in fc.daily_forecasts + [type('x', (), {'closing_balance': s.available_balance})()])
-        # Simpler: minimum_observed should be min closing (opening already >= min closing in this case? check)
-        self.assertEqual(fc.minimum_observed_balance, min(d.closing_balance for d in fc.daily_forecasts + [fc.daily_forecasts[0]]))
+        self.assertEqual(fc.minimum_observed_balance, min(d.closing_balance for d in fc.daily_forecasts))
         self.assertEqual(fc.invariant_ok, fc.first_breach_date is None)
         if fc.invariant_ok:
             for d in fc.daily_forecasts:
@@ -194,11 +191,10 @@ class ExpenseTests(unittest.TestCase):
 class RecurrenceAndEffectiveDateTests(unittest.TestCase):
     def test_salary_update_effective_date(self):
         evs = history(direction="credit", event_type="income", category="salary")
-        s = build_financial_state(bundle(evs), request())
+        s = build_financial_state(bundle(evs, messages=[message()]), request())
         rec = s.recurrences[0]
         # Salary update from 50 to 100 effective 2026-05-01
         upd = EvidenceUpdate("message", "notice", "recurrence", rec.recurrence_id, "amount", D("100"), date(2026, 5, 1), date(2026, 4, 1), operation="amend", old_value=rec.amount)
-        s2 = build_financial_state(bundle(evs, messages=[message()]), request(), )
         from code.evidence import apply_evidence_updates
         s2 = apply_evidence_updates(s, [upd])
         fc = simulate_90_days(s2)
@@ -218,7 +214,7 @@ class RecurrenceAndEffectiveDateTests(unittest.TestCase):
 
     def test_salary_reduction_and_end(self):
         evs = history(direction="credit", event_type="income", category="salary")
-        s = build_financial_state(bundle(evs), request())
+        s = build_financial_state(bundle(evs, messages=[message()]), request())
         rec = s.recurrences[0]
         # Reduce to 20 effective 2026-06-01
         upd = EvidenceUpdate("message", "notice", "recurrence", rec.recurrence_id, "amount", D("20"), date(2026, 6, 1), date(2026, 4, 1), operation="amend", old_value=rec.amount)
@@ -226,8 +222,8 @@ class RecurrenceAndEffectiveDateTests(unittest.TestCase):
         s2 = apply_evidence_updates(s, [upd])
         fc = simulate_90_days(s2)
         rec_entries = {d.forecast_date: e.normalized_amount for d in fc.daily_forecasts for e in d.inflows for ex in [e] if e.source_id == rec.recurrence_id}
-        # contract end
-        upd_end = EvidenceUpdate("message", "notice", "recurrence", rec.recurrence_id, "end_date", date(2026, 5, 31), date(2026, 5, 31), operation="amend", old_value=None)
+        # contract end effective 2026-05-31 observed 2026-04-01
+        upd_end = EvidenceUpdate("message", "notice", "recurrence", rec.recurrence_id, "end_date", date(2026, 5, 31), date(2026, 5, 31), date(2026, 4, 1), operation="amend", old_value=None)
         s3 = apply_evidence_updates(s, [upd_end])
         fc3 = simulate_90_days(s3)
         entries_after = [dt for dt in [d.forecast_date for d in fc3.daily_forecasts for e in d.inflows if e.source_id == rec.recurrence_id] if dt > date(2026, 5, 31)]
@@ -237,9 +233,9 @@ class RecurrenceAndEffectiveDateTests(unittest.TestCase):
         # Setup a scheduled salary event on 2026-04-15 then date change to 2026-04-20
         sched = event("next_sal", direction="credit", event_type="income", category="salary", amount=D("1000"), status="scheduled", event_date=date(2026, 4, 15), settlement_date=date(2026, 4, 15))
         evs = history(direction="credit", event_type="income", category="salary") + [sched]
-        s = build_financial_state(bundle(evs), request())
-        # Resolver would amend settlement_date to new date
-        upd = EvidenceUpdate("message", "notice", "event", "next_sal", "settlement_date", date(2026, 4, 20), date(2026, 4, 20), operation="amend", old_value=date(2026, 4, 15))
+        s = build_financial_state(bundle(evs, messages=[message()]), request())
+        # Resolver would amend settlement_date to new date; observed before effective
+        upd = EvidenceUpdate("message", "notice", "event", "next_sal", "settlement_date", date(2026, 4, 20), date(2026, 4, 20), date(2026, 4, 1), operation="amend", old_value=date(2026, 4, 15))
         from code.evidence import apply_evidence_updates
         s2 = apply_evidence_updates(s, [upd])
         fc = simulate_90_days(s2)
@@ -251,7 +247,7 @@ class RecurrenceAndEffectiveDateTests(unittest.TestCase):
 
     def test_rent_increase_effective(self):
         evs = history(category="rent", flexibility="fixed")
-        s = build_financial_state(bundle(evs), request())
+        s = build_financial_state(bundle(evs, messages=[message()]), request())
         rec = s.recurrences[0]
         # Rent increase: we simulate via recurrence amount amend
         upd = EvidenceUpdate("message", "notice", "recurrence", rec.recurrence_id, "amount", D("80"), date(2026, 6, 1), date(2026, 4, 1), operation="amend", old_value=rec.amount)

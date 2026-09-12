@@ -132,25 +132,46 @@ def _build_daily_ledger(state: FinancialState, start_date: date, end_date: date,
         if item.event_id in stops:
             continue
 
-        # Materialize event at its forecast date to get effective amount/date (evidence amendments)
+        # Effective-dated evidence may move settlement date (e.g., salary date change)
+        # Materialize at window end to capture final effective date, then derive ledger date
         try:
-            eff_event = event_on_date(state, item.event_id, item.forecast_date)
+            eff_final = event_on_date(state, item.event_id, end_date)
+        except Exception:
+            eff_final = None
+        try:
+            eff_at_forecast = event_on_date(state, item.event_id, item.forecast_date)
         except Exception as exc:
             warnings.append(ForecastWarning("DATASET ISSUE", "event_materialize_failed", item.event_id, str(exc)))
+            continue
+
+        # Prefer final effective event if it has a later settlement date (date change)
+        eff_event = eff_at_forecast
+        if eff_final and eff_final.settlement_date and eff_final.settlement_date != eff_at_forecast.settlement_date:
+            # If final settlement differs, it means an effective-dated amendment moves the cash date
+            # Use final settlement as ledger date if within window
+            eff_event = eff_final
+
+        # Derive actual ledger date: for pending/scheduled, settlement_date is the cash date
+        ledger_date = eff_event.settlement_date or item.forecast_date
+        # Pending debits with early settlement must still reserve at start_date
+        if eff_event.status == "pending" and ledger_date < start_date:
+            ledger_date = start_date
+        if ledger_date < start_date or ledger_date > end_date:
+            continue
+        # Skip if effective status no longer forecastable (e.g., cancelled by evidence)
+        if eff_event.status in {"cancelled", "failed", "unrealized"} or eff_event.direction == "non_cash":
             continue
 
         if eff_event.amount is None:
             warnings.append(ForecastWarning("UNRESOLVED EVIDENCE", "unresolved_amount", item.event_id, "Event amount remains unresolved."))
             continue
-        # Determine direction
         direction = eff_event.direction
         if direction not in {"credit", "debit"}:
             continue
 
-        normalized, rate_used, rate_date, status = _convert(eff_event.amount, eff_event.currency, home, eff_event.settlement_date or item.forecast_date, rates, warnings, item.event_id)
+        normalized, rate_used, rate_date, status = _convert(eff_event.amount, eff_event.currency, home, eff_event.settlement_date or ledger_date, rates, warnings, item.event_id)
         if normalized is None:
             continue
-        # Apply reduction if any
         orig_normalized = normalized
         if item.event_id in reduces:
             normalized = reduced_amount(item.event_id, "", normalized)
@@ -158,7 +179,7 @@ def _build_daily_ledger(state: FinancialState, start_date: date, end_date: date,
                 warnings.append(ForecastWarning("SIMULATION", "reduce_applied", item.event_id, f"Reduced {orig_normalized} -> {normalized}"))
 
         entry = LedgerEntry(
-            entry_id=f"event:{item.event_id}:{item.forecast_date.isoformat()}",
+            entry_id=f"event:{item.event_id}:{ledger_date.isoformat()}",
             source_type="event",
             source_id=item.event_id,
             category=eff_event.category,
@@ -171,7 +192,7 @@ def _build_daily_ledger(state: FinancialState, start_date: date, end_date: date,
             exchange_rate_date=rate_date,
             amount_status=status,
         )
-        ledger[item.forecast_date].append(entry)
+        ledger[ledger_date].append(entry)
 
     # 2. Recurring inflows/outflows
     for rec in state.recurrences:
