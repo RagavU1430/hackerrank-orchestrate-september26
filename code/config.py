@@ -31,6 +31,12 @@ EVALUATION_DIR: Path = REPO_ROOT / "evaluation"
 DATA_QUALITY_REPORT_FILE: Path = EVALUATION_DIR / "data_quality_report.md"
 USAGE_REPORT_FILE: Path = EVALUATION_DIR / "usage_report.md"
 FORECAST_REPORT_FILE: Path = EVALUATION_DIR / "forecast_report.md"
+AFFORDABILITY_REPORT_FILE: Path = EVALUATION_DIR / "affordability_report.md"
+SPENDING_REPORT_FILE: Path = EVALUATION_DIR / "spending_adjustment_report.md"
+AGENT_REPORT_FILE: Path = EVALUATION_DIR / "agent_report.md"
+FINAL_EVALUATION_REPORT_FILE: Path = EVALUATION_DIR / "final_evaluation_report.md"
+JUDGE_SUMMARY_FILE: Path = EVALUATION_DIR / "judge_summary.md"
+
 
 REQUIRED_DATASET_FILES: Dict[str, Path] = {
     "requests": REQUESTS_FILE,
